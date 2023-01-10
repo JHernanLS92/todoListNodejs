@@ -7,6 +7,7 @@ const app = express();
 const initModels = require('./models/initModel');
 const Users = require('./models/users.model');
 const Todos = require('./models/todos.models');
+const userRoutes = require('./routes/users.routes');
 
 
 app.use(express.json());
@@ -21,11 +22,12 @@ initModels();
 db.sync({force: false}) //devuelve una promesa, recibe los cambios en el objeto para actualizar las tabalas
     .then( () => console.log('Base de datos sincronizada'))
     .catch( (error) => console.log(error));
+    
+app.use("/api/v1", userRoutes);
 
-app.get('/', (req, res) => {
-    // codigo de respuesta del servidor 
-    res.status(200).json({ message: "Bienvenido al servidor" });
-});
+
+
+
 
 // defiir las rutas de nuestros endpoints (de ahora en adelante ep)
 //todas las consultas de usuarios 
