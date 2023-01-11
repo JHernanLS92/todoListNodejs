@@ -19,6 +19,15 @@ const getUserById = async (req, res) => {
   }
    
 };
+const getUsersTasks = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await UserServices.getWithTasks(id);
+    res.json(result);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+};
 const postUser = async (req, res) => {
     try {
         const newUser = req.body;
@@ -28,17 +37,35 @@ const postUser = async (req, res) => {
         res.status(400).json(error.message);
     }
 };
-const putUser = (req, res) => {
-    res.json({ message: "Actualizando usuario" });
+const putUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const field = req.body;
+        const result = UserServices.update(field, {
+            where: { id }
+        });
+        res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
 };
-const deleteUser = (req, res) => {
-    res.json({ message: "Borrando usuario" });
+const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await UserServices.destroy({
+          where: { id }
+        });
+        res.status(200).json(result);
+      } catch (error) {
+        res.status(400).json(error.message);
+      }
 };
 
 
 module.exports = {
     getAllUsers,
     getUserById,
+    getUsersTasks,
     postUser,
     putUser,
     deleteUser
