@@ -34,6 +34,14 @@ class UserServices {
             throw error;
         }
     }
+    static async getCategories(){
+        try {
+            const result = await Users.findAll();
+            return result;
+        } catch (error) {
+            throw  error;
+        }
+    }
     static async create(user){
         try {
             const result = await Users.create(user);

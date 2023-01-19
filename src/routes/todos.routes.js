@@ -2,18 +2,19 @@ const { Router } = require('express');
 const {
     getAllTodos,
     getTodoById,
-    getTodoCategory,
+    getTodosWithCategories,
     createTodos,
     updateTodo,
     deleteTodo
 } = require('../controllers/todos.controller');
+const authMiddleware = require('../middleware/auth.middleware');
 const router = Router();
 
-router.get('/todos', getAllTodos);
-router.get('/todos/:id', getTodoById);
-router.get('/todos/:id/category', getTodoCategory);
-router.post('/todos', createTodos);
-router.put('/todos/:id', updateTodo);
-router.delete('/todos/:id', deleteTodo);
+router.get('/todos', authMiddleware, getAllTodos);
+router.get('/todos/:id', authMiddleware, getTodoById);
+router.get('/todos/:id/categories', authMiddleware, getTodosWithCategories);
+router.post('/todos', authMiddleware, createTodos);
+router.put('/todos/:id', authMiddleware, updateTodo);
+router.delete('/todos/:id', authMiddleware, deleteTodo);
 
 module.exports = router;

@@ -7,7 +7,7 @@ const TodosCategories = require('../models/todos_categories.models');
 
 
 const users = [
-    { username: 'Hernan', email: 'juanhernan@gmail.com', password: '12345' },
+    { username: 'Hernan', email: 'juanhernan@gmail.com', password: 'hernan' },
     { username: 'Liliana', email: 'liliana@gmail.com', password: '12345' },
     { username: 'Aldo', email: 'aldo@gmail.com', password: '12345' }
 ];
@@ -48,7 +48,7 @@ const todosCategories = [
   
 
 
-db.sync({force: false})
+db.sync({force: true})
 .then( () => {
     console.log("inciando con el sembradio malicioso");
     users.forEach( (user) => Users.create(user));

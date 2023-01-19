@@ -20,7 +20,7 @@ const TodosCategories = db.define( "todos_categories" , {
             key: "id",
         }
     },
-    todoId:{
+    todo_id:{
         type: DataTypes.INTEGER,
         allowNull: false,
         field: "todo_id",

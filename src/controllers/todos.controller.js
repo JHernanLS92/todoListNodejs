@@ -20,16 +20,6 @@ const getTodoById = async (req, res) => {
     }
 };
 
-const getTodoCategory = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const result = await TodosServices.getWithCateg(id);
-        res.json(result);
-    } catch (error) {
-        res.status(400).json(error.message);
-    }
-};
-
 const createTodos = async (req, res) => {
     try {
         const newTodo = req.body;
@@ -60,11 +50,27 @@ const deleteTodo = async (req, res) => {
         res.status(400).json(error.message);
     }
 };
+const getTodosWithCategories = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await TodosServices.getWithCategories(id);
+      res.json({
+        message: "Envinado tareas con categorias",
+        data: result,
+      });
+    } catch (error) {
+      res.status(400).json({
+        error: error.messages,
+        details: error.stack,
+      });
+    }
+  };
+  
 
 module.exports = {
     getAllTodos,
     getTodoById,
-    getTodoCategory,
+    getTodosWithCategories,
     createTodos,
     updateTodo,
     deleteTodo

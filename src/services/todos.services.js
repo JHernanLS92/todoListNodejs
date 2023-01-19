@@ -1,5 +1,7 @@
-const Todos = require('../models/todos.models');
 const Categories = require('../models/categories.models');
+const Todos = require('../models/todos.models');
+const TodosCategories = require('../models/todos_categories.models');
+
 
 class TodosServices{
     static async getAllTodos(){
@@ -18,16 +20,22 @@ class TodosServices{
             throw error;
         }
     }
-    static async getWithCateg(id){
+    static async getWithCategories(id){
         try {
             const result = await Todos.findOne({
                 where: { id },
-                include:{
+                include: {
+                  model: TodosCategories,
+                  as: "categories",
+                  attributes: ["id"],
+                  include: {
                     model: Categories,
-                    as:"category"
-                }
-            });
-            return result;
+                    as: "categories",
+                    attributes: ["name"]
+                  }
+                },
+              });   
+           return result;
         } catch (error) {
             throw error
         }
