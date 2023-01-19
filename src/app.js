@@ -11,10 +11,11 @@ const userRoutes = require('./routes/users.routes');
 const todosRoutes = require('./routes/todos.routes');
 const authRoutes = require('./routes/auth.routes');
 const cors = require('cors');
+require('dotenv').config();
 
 app.use(express.json());
 app.use(cors());
-const PORT = 8000;
+const PORT = process.env.PORT;
 //probando la conexion de la base de datos
 db.authenticate()
     .then( () => console.log('Autenticacion exitosa'))
